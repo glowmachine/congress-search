@@ -14,6 +14,7 @@ class App {
     }
 
     cacheDOM() {
+        this.resultsSection = document.querySelector('.results__section');
         this.cardList = document.querySelector('.card__list');
         this.filterButton = document.querySelector('.header__filter-btn');
         this.filterButtonLines = this.filterButton.querySelector('.header__filter-btn-lines');
@@ -85,6 +86,51 @@ class App {
             };
         });
         return filtered;
+    }
+
+    drawResults(data) {
+        const num = this.countResults(data);
+        const html = `
+            <p>Results: ${num.results}</p>
+            <p>Senators: ${num.senators}</p>
+            <p>Representatives: ${num.representatives}</p>
+            <p>Democrats: ${num.democrats}</p>
+            <p>Independents: ${num.independents}</p>
+            <p>Republicans: ${num.republicans}</p>`;
+        this.resultsSection.innerHTML = html;
+    }
+
+    countResults(data) {
+        const counters = {
+            results: 0,
+            senators: 0,
+            representatives: 0,
+            democrats: 0,
+            independents: 0,
+            republicans: 0
+        };
+
+        data.forEach(member => {
+            counters.results++;
+
+            if (member.title === 'Senator') {
+                counters.senators++;
+            }
+            else if (member.title === 'Representative') {
+                counters.representatives++;
+            }
+
+            if (member.party === 'Democrat') {
+                counters.democrats++;
+            }
+            else if (member.party === 'Republican') {
+                counters.republicans++;
+            }
+            else if (member.party === 'Independent') {
+                counters.independents++;
+            }
+        });
+        return counters;
     }
 
     drawCards(data) {
