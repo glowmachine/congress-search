@@ -51,7 +51,7 @@ class App {
             const filteredData = this.data.filter(member => {
                 return (
                     member.name.toLowerCase().includes(term.toLowerCase()) ||
-                    member.title.toLowerCase().includes(term.toLowerCase()) ||
+                    member.office.toLowerCase().includes(term.toLowerCase()) ||
                     member.state.toLowerCase().includes(term.toLowerCase()) ||
                     member.party.toLowerCase().includes(term.toLowerCase())
                 );
@@ -81,7 +81,7 @@ class App {
                 // photo: this.getPhoto(member),
                 photo: "",
                 name: member.name.official_full,
-                title: this.getTitle(member),
+                office: this.getOffice(member),
                 state: this.getState(member),
                 party: this.getParty(member),
                 wikipedia: `https://en.wikipedia.org/wiki/${member.id.wikipedia}`
@@ -115,10 +115,10 @@ class App {
         data.forEach(member => {
             counters.results++;
 
-            if (member.title === 'Senator') {
+            if (member.office === 'Senator') {
                 counters.senators++;
             }
-            else if (member.title === 'Representative') {
+            else if (member.office === 'Representative') {
                 counters.representatives++;
             }
 
@@ -150,8 +150,8 @@ class App {
         card.innerHTML = `
                     <img src="${member.photo}" alt="Portrait of ${member.name}" class="card__portrait" height="200" width="200">
                     <div class="card__details">
-                        <h2 class="card__title">${member.name}</h2>
-                        <p>${member.title} - ${member.party}</p>
+                        <h2 class="card__office">${member.name}</h2>
+                        <p>${member.office} - ${member.party}</p>
                         <p>${member.state}</p>
                         <a href="${member.wikipedia}">View Profile</a>
                     </div>`;
@@ -163,7 +163,7 @@ class App {
         return null;
     }
 
-    getTitle(member) {
+    getOffice(member) {
         const currentTerm = member.terms.at(-1);
         return currentTerm.type === 'sen' ? 'Senator' : 'Representative';
     }
