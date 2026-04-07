@@ -7,13 +7,17 @@ class App {
         this.drawCards(this.fetchData());
 
         this.cacheDOM();
-        this.filterButtonListener();
+        this.bindingEvents();
     }
 
     cacheDOM() {
         this.cardList = document.querySelector('.card__list');
         this.filterButton = document.querySelector('.header__filter-btn');
         this.filterButtonLines = this.filterButton.querySelector('.header__filter-btn-lines');
+    }
+
+    bindingEvents() {
+        this.filterButtonListener();
     }
 
     filterButtonListener() {
