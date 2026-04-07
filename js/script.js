@@ -12,14 +12,14 @@ class App {
 
     cacheDOM() {
         this.cardList = document.querySelector('.card__list');
+        this.filterButton = document.querySelector('.header__filter-btn');
+        this.filterButtonLines = this.filterButton.querySelector('.header__filter-btn-lines');
     }
 
     filterButtonListener() {
-        const filterButton = document.querySelector('.header__filter-btn');
-        const filterButtonLines = filterButton.querySelector('.header__filter-btn-lines');
-        filterButton.addEventListener('click', (e) => {
+        this.filterButton.addEventListener('click', (e) => {
             e.preventDefault();
-            filterButtonLines.classList.toggle('active');
+            this.filterButtonLines.classList.toggle('active');
         });
     }
 
