@@ -72,8 +72,6 @@ class App {
     filterData(database) {
         const filtered = database.map(member => {
             return {
-                // photo: this.getPhoto(member),
-                photo: "",
                 name: member.name.official_full,
                 office: this.getOffice(member),
                 state: this.getState(member),
@@ -142,7 +140,6 @@ class App {
         card.className = 'card';
 
         card.innerHTML = `
-                    <img src="${member.photo}" alt="Portrait of ${member.name}" class="card__portrait" height="200" width="200">
                     <div class="card__details">
                         <h2 class="card__office">${member.name}</h2>
                         <p>${member.office} - ${member.party}</p>
@@ -150,11 +147,6 @@ class App {
                         <a href="${member.wikipedia}">View Profile</a>
                     </div>`;
         return card;
-    }
-
-    // TODO: find source
-    getPhoto(member) {
-        return null;
     }
 
     getOffice(member) {
@@ -233,17 +225,6 @@ class App {
         const currentTerm = member.terms.at(-1);
         return currentTerm.party;
     }
-
-    // createMember(data) {
-    //     const memberDetails = {
-    //         name: data.name.official_full,
-    //     };
-
-    //     function getParty() {
-
-    //     }
-    //     // return memberDetails;
-    // }
 }
 
 new App();
