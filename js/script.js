@@ -10,7 +10,7 @@ class App {
         const database = await this.fetchData();
         this.data = this.filterData(database);
 
-        this.searchHandler();
+        this.searchHandler('');
     }
 
     cacheDOM() {
@@ -43,22 +43,16 @@ class App {
     }
 
     searchHandler(term) {
-        if (!term) {
-            this.drawResults(this.data);
-            this.drawCards(this.data);
-        }
-        else {
-            const filteredData = this.data.filter(member => {
-                return (
-                    member.name.toLowerCase().includes(term.toLowerCase()) ||
-                    member.office.toLowerCase().includes(term.toLowerCase()) ||
-                    member.state.toLowerCase().includes(term.toLowerCase()) ||
-                    member.party.toLowerCase().includes(term.toLowerCase())
-                );
-            });
-            this.drawResults(filteredData);
-            this.drawCards(filteredData);
-        }
+        const filteredData = this.data.filter(member => {
+            return (
+                member.name.toLowerCase().includes(term.toLowerCase()) ||
+                member.office.toLowerCase().includes(term.toLowerCase()) ||
+                member.state.toLowerCase().includes(term.toLowerCase()) ||
+                member.party.toLowerCase().includes(term.toLowerCase())
+            );
+        });
+        this.drawResults(filteredData);
+        this.drawCards(filteredData);
     };
 
     async fetchData() {
