@@ -8,18 +8,22 @@ class App {
         this.bindingEvents();
 
         const database = await this.fetchData();
-        const data = this.filterData(database);
-        this.drawCards(data);
+        this.data = this.filterData(database);
+
+        this.searchHandler();
     }
 
     cacheDOM() {
         this.cardList = document.querySelector('.card__list');
         this.filterButton = document.querySelector('.header__filter-btn');
         this.filterButtonLines = this.filterButton.querySelector('.header__filter-btn-lines');
+        this.searchField = document.querySelector('.header__text-field');
+        // this.searchButton = document.querySelector('.header__submit-btn');
     }
 
     bindingEvents() {
         this.filterButtonListener();
+        this.searchFieldListener();
     }
 
     filterButtonListener() {
@@ -28,6 +32,33 @@ class App {
             this.filterButtonLines.classList.toggle('active');
         });
     }
+
+    searchFieldListener() {
+        this.searchField.addEventListener('input', (e) => {
+            e.preventDefault();
+            console.log(e.target.value);
+            this.searchHandler(e.target.value);
+        });
+    }
+
+    searchHandler(term) {
+        if (!term) {
+            this.drawResults(this.data);
+            this.drawCards(this.data);
+        }
+        else {
+            const filteredData = this.data.filter(member => {
+                return (
+                    member.name.toLowerCase().includes(term.toLowerCase()) ||
+                    member.title.toLowerCase().includes(term.toLowerCase()) ||
+                    member.state.toLowerCase().includes(term.toLowerCase()) ||
+                    member.party.toLowerCase().includes(term.toLowerCase())
+                );
+            });
+            this.drawResults(filteredData);
+            this.drawCards(filteredData);
+        }
+    };
 
     async fetchData() {
         try {
@@ -57,6 +88,7 @@ class App {
     }
 
     drawCards(data) {
+        this.cardList.innerHTML = '';
         const members = data;
         members.forEach(member => {
             this.cardList.appendChild(this.createCard(member));
