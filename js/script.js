@@ -3,11 +3,13 @@ class App {
         this.init();
     }
 
-    init() {
-        this.drawCards(this.fetchData());
-
+    async init() {
         this.cacheDOM();
         this.bindingEvents();
+
+        const database = await this.fetchData();
+        const data = this.filterData(database);
+        this.drawCards(data);
     }
 
     cacheDOM() {
@@ -33,10 +35,7 @@ class App {
             if (!response.ok) {
                 throw new Error(`ok: ${response.ok}, status: ${response.status}`);
             }
-
-            const database = await response.json();
-            return this.filterData(database);
-
+            return await response.json();
         }
         catch (error) {
             console.error(error);
@@ -57,8 +56,8 @@ class App {
         return filtered;
     }
 
-    async drawCards(database) {
-        const members = await database;
+    drawCards(data) {
+        const members = data;
         members.forEach(member => {
             this.cardList.appendChild(this.createCard(member));
         });
