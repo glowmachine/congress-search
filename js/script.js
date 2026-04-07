@@ -78,11 +78,13 @@ class App {
     filterData(database) {
         const filtered = database.map(member => {
             return {
-                photo: this.getPhoto(member),
+                // photo: this.getPhoto(member),
+                photo: "",
                 name: member.name.official_full,
                 title: this.getTitle(member),
                 state: this.getState(member),
-                party: this.getParty(member)
+                party: this.getParty(member),
+                wikipedia: `https://en.wikipedia.org/wiki/${member.id.wikipedia}`
             };
         });
         return filtered;
@@ -151,7 +153,7 @@ class App {
                         <h2 class="card__title">${member.name}</h2>
                         <p>${member.title} - ${member.party}</p>
                         <p>${member.state}</p>
-                        <a href="#">View Profile</a>
+                        <a href="${member.wikipedia}">View Profile</a>
                     </div>`;
         return card;
     }
