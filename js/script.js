@@ -10,7 +10,7 @@ class App {
         const database = await this.fetchData();
         this.data = this.filterData(database);
 
-        this.searchHandler('');
+            this.search('');
     }
 
     cacheDOM() {
@@ -36,22 +36,18 @@ class App {
 
     searchFieldListener() {
         this.searchField.addEventListener('input', (e) => {
-            e.preventDefault();
-            console.log(e.target.value);
-            this.searchHandler(e.target.value);
+            this.search(e.target.value);
         });
     }
 
-    searchHandler(term) {
-        const lowerCaseTerm = term.toLowerCase();
+    search(textInput) {
+        const lowerCaseTerms = textInput.toLowerCase().split(' ');
         const filteredData = this.data.filter(member => {
-            return (
-                member.name.toLowerCase().includes(lowerCaseTerm) ||
-                member.office.toLowerCase().includes(lowerCaseTerm) ||
-                member.state.toLowerCase().includes(lowerCaseTerm) ||
-                member.party.toLowerCase().includes(lowerCaseTerm)
-            );
+            const filteredTerms = [member.name, member.office, member.state, member.party]
+                .join(' ').toLowerCase();
+            return lowerCaseTerms.every(term => filteredTerms.includes(term));
         });
+
         this.drawResults(filteredData);
         this.drawCards(filteredData);
     };
