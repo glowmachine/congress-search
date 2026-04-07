@@ -43,12 +43,13 @@ class App {
     }
 
     searchHandler(term) {
+        const lowerCaseTerm = term.toLowerCase();
         const filteredData = this.data.filter(member => {
             return (
-                member.name.toLowerCase().includes(term.toLowerCase()) ||
-                member.office.toLowerCase().includes(term.toLowerCase()) ||
-                member.state.toLowerCase().includes(term.toLowerCase()) ||
-                member.party.toLowerCase().includes(term.toLowerCase())
+                member.name.toLowerCase().includes(lowerCaseTerm) ||
+                member.office.toLowerCase().includes(lowerCaseTerm) ||
+                member.state.toLowerCase().includes(lowerCaseTerm) ||
+                member.party.toLowerCase().includes(lowerCaseTerm)
             );
         });
         this.drawResults(filteredData);
