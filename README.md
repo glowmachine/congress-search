@@ -1,8 +1,13 @@
 # 
-A simple webapp for looking up US Congress members.
+A practice exercise of a simple webapp for looking up US Congress members.
+
+## Live Demo
+https://glowmachine.github.io/congress-search/
 
 ## Features
-- a search bar
+- Search legislators by name/nickname, state, district, and/or party
+- Debounced search input
+- Live results counter
 
 ## Tech Stack
 - HTML
@@ -11,7 +16,7 @@ A simple webapp for looking up US Congress members.
 - JSON
 
 ## How It Works
-- Legislator data is fetched from https://github.com/unitedstates/congress-legislators, users can use the search bar to find members by name, office, party, state/territory, and/or district.
+- Legislator data is fetched from https://github.com/unitedstates/congress-legislators JSON, and users can use the search bar to find members when their terms match one of the extracted object properties. Search is live and filters results with a 0.5s debounce.
 
 ## Key Challenges
 - filter button styling
@@ -22,3 +27,4 @@ A simple webapp for looking up US Congress members.
 - filter functionality
 - responsive layout
 - UI improvements
+- abstract data and functions
