@@ -106,7 +106,7 @@ footer {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 10rem;
+    gap: 1rem;
 }
 
 .header__text-field {
