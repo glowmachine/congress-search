@@ -35,8 +35,12 @@ class App {
     }
 
     searchFieldListener() {
+        let timeout;
         this.searchField.addEventListener('input', (e) => {
-            this.search(e.target.value);
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                this.search(e.target.value);
+            }, 500);
         });
     }
 
