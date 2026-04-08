@@ -154,7 +154,7 @@ class App {
         card.className = 'card';
 
         let validDistrict = '';
-        if (member.office === 'Representative' && member.district[0] !== '0') {
+        if (member.office === 'Representative' && member.district !== '') {
             validDistrict = ` - ${member.district}`;
         }
 
