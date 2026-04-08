@@ -66,8 +66,8 @@ class App {
         }
     }
 
-    filterData(database) {
-        const filtered = database.map(member => {
+    extractData(database) {
+        const extractedData = database.map(member => {
             return {
                 name: member.name.official_full,
                 office: this.getOffice(member),
@@ -76,7 +76,7 @@ class App {
                 wikipedia: `https://en.wikipedia.org/wiki/${member.id.wikipedia}`
             };
         });
-        return filtered;
+        return extractedData;
     }
 
     drawResults(data) {
