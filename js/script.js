@@ -48,7 +48,7 @@ class App {
         const normalizedTerms = textInput.toLowerCase().split(' ')
             .map(word => word.length === 2 ? word.toUpperCase() : word);
         const filteredData = this.data.filter(member => {
-            const filteredTerms = [member.name, member.office, member.state, member.party]
+            const filteredTerms = [member.name, member.office, member.state, member.district, member.party]
                 .join(' ').toLowerCase() + ` ${member.stateAbbr}`;
             return normalizedTerms.every(term => filteredTerms.includes(term));
         });
@@ -75,10 +75,13 @@ class App {
         const extractedData = database.map(member => {
             return {
                 name: member.name.official_full,
+                age: member.bio.birthday,
                 office: this.getOffice(member),
                 state: this.getState(member),
+                district: this.getDistrict(member),
                 stateAbbr: member.terms.at(-1).state,
                 party: this.getParty(member),
+                website: this.getWebsite(member),
                 wikipedia: `https://en.wikipedia.org/wiki/${member.id.wikipedia}`
             };
         });
@@ -142,13 +145,26 @@ class App {
         const card = document.createElement('article');
         card.className = 'card';
 
+        let formattedDistrict = '';
+        if (member.district !== undefined && member.district !== 0) {
+            formattedDistrict += ` - District ${member.district}`;
+        }
+
         card.innerHTML = `
                     <div class="card__details">
                         <h2 class="card__office">${member.name}</h2>
                         <p>${member.office} - ${member.party}</p>
-                        <p>${member.state}</p>
+                        <p>${member.state} ${formattedDistrict}</p>
                         <a href="${member.wikipedia}">View Profile</a>
+                        <a href="${member.website}">Visit Website</a>
                     </div>`;
+        // card.innerHTML = `
+        //             <div class="card__details">
+        //                 <h2 class="card__office">${member.name}</h2>
+        //                 <p>${member.office} - ${member.party}</p>
+        //                 <p>${member.state}</p>
+        //                 <a href="${member.wikipedia}">View Profile</a>
+        //             </div>`;
         return card;
     }
 
@@ -222,9 +238,19 @@ class App {
         return fullname[currentTerm.state];
     }
 
+    getDistrict(member) {
+        const currentTerm = member.terms.at(-1);
+        return currentTerm.district;
+    }
+
     getParty(member) {
         const currentTerm = member.terms.at(-1);
         return currentTerm.party;
+    }
+
+    getWebsite(member) {
+        const currentTerm = member.terms.at(-1);
+        return currentTerm.url;
     }
 }
 
