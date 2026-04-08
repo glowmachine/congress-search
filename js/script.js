@@ -45,10 +45,11 @@ class App {
     }
 
     search(textInput) {
+        const ignoredTerms = ['district'];
         const normalizedTerms = textInput.toLowerCase().split(' ')
             .map(word => word.length === 2 ? word.toUpperCase() : word);
         const filteredData = this.data.filter(member => {
-            const filteredTerms = [member.name, member.office, member.state, member.district, member.party]
+            const filteredTerms = [member.name, member.office, member.state, member.district, member.party, ...ignoredTerms]
                 .join(' ').toLowerCase() + ` ${member.stateAbbr}`;
             return normalizedTerms.every(term => filteredTerms.includes(term));
         });
