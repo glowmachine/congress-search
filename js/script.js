@@ -161,8 +161,7 @@ class App {
                         <h2 class="card__office">${member.name}</h2>
                         <p>${member.office} - ${member.party}</p>
                         <p>${member.state} ${formattedDistrict}</p>
-                        <a href="${member.wikipedia}">View Profile</a>
-                        <a href="${member.website}">Visit Website</a>
+                        <a href="${member.wikipedia}">View Profile</a> / <a href="${member.website}">Visit Website</a>
                     </div>`;
         // card.innerHTML = `
         //             <div class="card__details">
