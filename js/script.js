@@ -41,11 +41,12 @@ class App {
     }
 
     search(textInput) {
-        const lowerCaseTerms = textInput.toLowerCase().split(' ');
+        const normalizedTerms = textInput.toLowerCase().split(' ')
+            .map(word => word.length === 2 ? word.toUpperCase() : word);
         const filteredData = this.data.filter(member => {
             const filteredTerms = [member.name, member.office, member.state, member.party]
-                .join(' ').toLowerCase();
-            return lowerCaseTerms.every(term => filteredTerms.includes(term));
+                .join(' ').toLowerCase() + ` ${member.stateAbbr}`;
+            return normalizedTerms.every(term => filteredTerms.includes(term));
         });
 
         this.drawResults(filteredData);
@@ -72,6 +73,7 @@ class App {
                 name: member.name.official_full,
                 office: this.getOffice(member),
                 state: this.getState(member),
+                stateAbbr: member.terms.at(-1).state,
                 party: this.getParty(member),
                 wikipedia: `https://en.wikipedia.org/wiki/${member.id.wikipedia}`
             };
