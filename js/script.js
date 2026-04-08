@@ -4,13 +4,18 @@ class App {
     }
 
     async init() {
-        this.cacheDOM();
-        this.bindingEvents();
+        try {
+            this.cacheDOM();
+            this.bindingEvents();
 
-        const database = await this.fetchData();
-        this.data = this.filterData(database);
+            const database = await this.fetchData();
+            this.data = this.extractData(database);
 
             this.search('');
+        }
+        catch (err) {
+            console.log("init() failed:", err);
+        }
     }
 
     cacheDOM() {
