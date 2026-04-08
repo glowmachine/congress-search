@@ -50,7 +50,7 @@ class App {
     }
 
     search(textInput) {
-        const ignoredTerms = ['district'];
+        const ignoredTerms = [''];
         const normalizedTerms = textInput.toLowerCase().split(' ')
             .map(word => word.length === 2 ? word.toUpperCase() : word);
         const filteredData = this.data.filter(member => {
@@ -151,16 +151,16 @@ class App {
         const card = document.createElement('article');
         card.className = 'card';
 
-        let formattedDistrict = '';
-        if (member.district !== undefined && member.district !== 0) {
-            formattedDistrict += ` - District ${member.district}`;
+        let validDistrict = '';
+        if (member.office === 'Representative' && member.district[0] !== '0') {
+            validDistrict = ` - ${member.district}`;
         }
 
         card.innerHTML = `
                     <div class="card__details">
                         <h2 class="card__office">${member.name}</h2>
                         <p>${member.office} - ${member.party}</p>
-                        <p>${member.state} ${formattedDistrict}</p>
+                        <p>${member.state}${validDistrict}</p>
                         <a href="${member.wikipedia}">View Profile</a> / <a href="${member.website}">Visit Website</a>
                     </div>`;
         // card.innerHTML = `
@@ -245,7 +245,25 @@ class App {
 
     getDistrict(member) {
         const currentTerm = member.terms.at(-1);
-        return currentTerm.district;
+        const district = currentTerm.district;
+        if (!district) {
+            return '';
+        }
+        if (district === 11 || district === 12) {
+            return `${district}th District`;
+        }
+        else if (district % 10 === 1) {
+            return `${district}st District`;
+        }
+        else if (district % 10 === 2) {
+            return `${district}nd District`;
+        }
+        else if (district % 10 === 3) {
+            return `${district}rd District`;
+        }
+        else {
+            return `${district}th District`;
+        }
     }
 
     getParty(member) {
