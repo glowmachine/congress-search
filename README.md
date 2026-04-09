@@ -27,4 +27,3 @@ https://glowmachine.github.io/congress-search/
 - filter functionality
 - responsive layout
 - UI improvements
-- abstract data and functions
