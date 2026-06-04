@@ -2,7 +2,7 @@
 A practice exercise of a simple webapp for looking up US Congress members.
 
 ## Live Demo
-https://glowmachine.github.io/congress-search/
+https://glowmachine.github.io/congress-search-v1/
 
 ## Features
 - Search legislators by name/nickname, state, district, and/or party
